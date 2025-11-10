@@ -1,45 +1,64 @@
+Aim:
+To write a C program to search an element in a sorted array using the Binary Search algorithm.
+
+Algorithm:
+
+1.Start the program.
+2.Read the number of elements n from the user.
+3.Read the n elements of the array in sorted order.
+4.Read the element to be searched (key).
+5.Initialize
+    low = 0,
+    high = n - 1.
+6.Repeat while low <= high:
+a. Find the middle index: mid = (low + high) / 2.
+b. If arr[mid] == key,
+    Display that the element is found at position mid + 1.
+    Set found = 1 and exit the loop.
+c. If arr[mid] < key, set low = mid + 1.
+d. Else set high = mid - 1.
+7.If the loop ends and found is still 0, display “Element not found”.
+8.Stop the program.
+
+Program:
+
 #include <stdio.h>
+
 int main()
 {
-    int n,i,mid,low,high,key,found=0;
+    int n, i, mid, low, high, key, found = 0;
     printf("Enter the number of elements : ");
     scanf("%d", &n);
     
     int arr[n];
-    printf("Enter the %d elements in sorted order : ",n);
+    printf("Enter the %d elements in sorted order : ", n);
     
-    for(i=0;i<n;i++)
-    {
-    scanf("%d", &arr[i]);
-    }
+    for(i = 0; i < n; i++)
+        scanf("%d", &arr[i]);
     
-    low=0;
-    high=n-1;
+    low = 0;
+    high = n - 1;
     
     printf("Enter the element to search : ");
     scanf("%d", &key);
     
-    while(low <= high)
+    while (low <= high)
     {
-        mid = (low + high)/2;
+        mid = (low + high) / 2;
         if (arr[mid] == key)
         {
-            printf("The Element %d is found at the position %d", key, mid+1);
+            printf("The Element %d is found at position %d", key, mid + 1);
             found = 1;
             break;
         }
         else if (arr[mid] < key)
-        {
             low = mid + 1;
-        }
         else
-        {
             high = mid - 1;
-        }
     }
+    
     if (!found)
-    {
         printf("Element not found");
-        return 0;
-    }
+    
+    return 0;
 }
