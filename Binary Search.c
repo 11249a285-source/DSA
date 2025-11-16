@@ -62,3 +62,12 @@ int main()
     
     return 0;
 }
+
+Output:
+Enter the number of elements : 5
+Enter the 5 elements in sorted order : 10 20 30 40 50
+Enter the element to search : 30
+The Element 30 is found at position 3
+
+Result:
+This program uses binary search to quickly find an element in a sorted array and displays whether the element is found or not.
