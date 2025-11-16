@@ -1,3 +1,25 @@
+Aim:
+To write a C program that reverses a string using stack operations (push and pop) implemented with an array.
+
+Algorithm:
+
+1. Start the program.
+2. Read the size of the character stack (MAX).
+3. Allocate memory for the stack using realloc.
+4. Define push(item):
+If stack is full, display “Overflow”.
+Else increment Top and insert character.
+5. Define pop():
+If stack is empty, display “Underflow”.
+Else return the character at Top and decrement Top.
+6. In StringReversal():
+Read a string from the user.
+Push every character of the string onto the stack.
+Pop all characters and print them to get the reversed string.
+7. End the program.
+
+Program:
+
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -60,3 +82,12 @@ STACK = realloc(STACK, MAX);
 StringReversal();
 return 0;
 }
+
+Output:
+Enter the size of CHAR STACK : 5
+Please Enter the string of size 5 to reverse : HELLO
+Reversed String : OLLEH
+
+
+Result:
+The program successfully reverses a string using stack operations, demonstrating the LIFO (Last In, First Out) property of stacks.
