@@ -27,113 +27,175 @@ Perform the chosen operation using switch–case.
 
 Program:
 
-#include<stdio.h>
-int Top = -1, MAX;
+#include <stdio.h>
+#include <stdlib.h>
 
-void display(int stack[])
-{
-    printf("Current stack elements are-\n");
-    for(int i=0; i<=Top; i++)
-    {
-        printf(">>%d", stack[i]);
-    }
-    printf("(Top)");
-}
+int top = -1;   // Top pointer for stack
+int size;       // Size of stack
+char *STACK;    // Dynamic array for stack
 
-void push(int stack[])
+// ---------------------- PUSH FUNCTION ----------------------
+void push(char item)
 {
-    int item;
-    if(Top == MAX - 1)
+    // Check if stack is full
+    if (top == (size - 1))
     {
-        printf("Stack is Overflow");
+        printf("Stack is already full, no additional push allowed - Overflow");
     }
     else
     {
-        printf("Enter the elements to push : ");
-        scanf("%d", &item);
-        Top = Top+1;
-        stack[Top] = item;
+        top = top + 1;     // Move top to next position
+        STACK[top] = item; // Insert item
     }
 }
 
-void pop(int stack[])
+// ---------------------- POP FUNCTION -----------------------
+void pop()
 {
-    int item;
-    if(Top == -1)
+    // If stack is empty
+    if (top == -1)
     {
-        printf("Stack is Underflow");
+        printf("Stack is underflow");
     }
     else
     {
-        item = stack[Top];
-        Top = Top-1;
+        char temp = STACK[top]; // Get top element
+        top = top - 1;          // Remove element from stack
+        printf("Element popped %c", temp);
     }
 }
 
+// ---------------------- DISPLAY FUNCTION -------------------
+void DisplayStack()
+{
+    if (top == -1)
+    {
+        printf("Stack is underflow");
+        return;
+    }
+
+    printf("[Top] \n");
+    for (int i = top; i >= 0; i--)
+    {
+        printf("%c \n", STACK[i]); // Print all elements from top to bottom
+    }
+}
+
+// ---------------------- MAIN PROGRAM -----------------------
 int main()
 {
-    int operation = 0, top = -1;
-    printf("Enter the size of stack : ");
-    scanf ("%d", &MAX);
-    int stack[MAX];
-    while(operation != 3)
+    int choice;
+    char data;
+
+    // Read stack size
+    printf("Enter size of stack: ");
+    scanf("%d", &size);
+
+    // Dynamic memory allocation for stack
+    STACK = (char *)malloc(size * sizeof(char));
+
+    // Infinite loop for menu-driven program
+    while (1)
     {
-        printf("\n 1.Push \n 2.Pop \n 3.Exit \n");
-        printf("\nPlease choose stack operation to perform : ");
-        scanf("%d", &operation);
-        switch(operation)
+        printf("\n--- Stack Menu ---\n");
+        printf("1. Push\n");
+        printf("2. Pop\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch (choice)
         {
-            case 1:
-            push(stack);
-            display(stack);
+        case 1:
+            printf("Enter data to insert: ");
+            scanf(" %c", &data); // Space before %c to avoid newline issue
+            push(data);
             break;
-            case 2:
-            pop(stack);
-            display(stack);
+
+        case 2:
+            pop();
             break;
-            case 3:
-            return 0;
-            default:
-            printf("Incorrect operation");
+
+        case 3:
+            DisplayStack();
             break;
+
+        case 4:
+            printf("Exiting...\n");
+            exit(0);
+
+        default:
+            printf("Invalid choice! Try again.\n");
         }
     }
-return 0;
+    return 0;
 }
 
-Output:
-Enter the size of stack : 5
 
-1.Push
-2.Pop
-3.Exit
-Please choose stack operation to perform : 1
-Enter the elements to push : 10
-Current stack elements are-
->>10(Top)
+User Input + Program Output:
+Enter size of stack: 3
 
-1.Push
-2.Pop
-3.Exit
-Please choose stack operation to perform : 1
-Enter the elements to push : 20
-Current stack elements are-
->>10>>20(Top)
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter data to insert: A
 
-1.Push
-2.Pop
-3.Exit
-Please choose stack operation to perform : 2
-Current stack elements are-
->>10(Top)
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter data to insert: B
 
-1.Push
-2.Pop
-3.Exit
-Please choose stack operation to perform : 2
-Stack is Underflow
-Current stack elements are-
->>10(Top)
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 1
+Enter data to insert: C
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 3
+[Top]
+C
+B
+A
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 2
+Element popped C
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 3
+[Top]
+B
+A
+
+--- Stack Menu ---
+1. Push
+2. Pop
+3. Display
+4. Exit
+Enter your choice: 4
+Exiting...
 
 Result:
 This program successfully demonstrates stack operations using an array, allowing the user to push, pop, and display stack elements.
