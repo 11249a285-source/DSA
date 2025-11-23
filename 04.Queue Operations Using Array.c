@@ -36,131 +36,177 @@ Print all elements from queue[front] to queue[rear]
 
 Program:
 
-#include<stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
 
-int front = -1, rear = -1, MAX;
+int front = -1, rear = -1, size;
+int *QUEUE; // Dynamic array for queue
 
-void enqueue(int queue[])
+// --------------------- ENQUEUE FUNCTION ---------------------
+void enqueue(int item)
 {
-    int item;
-    if(rear == MAX - 1)
+    // Check if queue is full
+    if (rear == size - 1)
     {
-        printf("Queue is Overflow\n");
+        printf("Queue Overflow! Cannot insert.\n");
+        return;
     }
-    else
-    {
-        printf("Enter element to enqueue : ");
-        scanf("%d", &item);
 
-        if(front == -1 && rear == -1)   // first element
-        {
-            front = rear = 0;
-        }
-        else
-        {
-            rear = rear + 1;
-        }
-        queue[rear] = item;
-    }
+    // If inserting the first element
+    if (front == -1)
+        front = 0;
+
+    rear++;                // Move rear pointer
+    QUEUE[rear] = item;    // Insert element
+    printf("%d inserted into queue.\n", item);
 }
 
-void dequeue(int queue[])
+// --------------------- DEQUEUE FUNCTION ---------------------
+void dequeue()
 {
-    if(front == -1 || front > rear)
+    // Check if queue is empty
+    if (front == -1)
     {
-        printf("Queue is Underflow\n");
+        printf("Queue Underflow! Nothing to delete.\n");
+        return;
     }
-    else
-    {
-        int item = queue[front];
-        front = front + 1;
 
-        // Reset queue if empty
-        if(front > rear)
-        {
-            front = rear = -1;
-        }
-    }
+    // Remove element from the front
+    int temp = QUEUE[front];
+    front++;
+    printf("Deleted element: %d\n", temp);
+
+    // Reset queue when it becomes empty
+    if (front > rear)
+        front = rear = -1;
 }
 
-void display(int queue[])
+// --------------------- DISPLAY FUNCTION ---------------------
+void display()
 {
-    if(front == -1)
+    // Check if queue is empty
+    if (front == -1)
     {
-        printf("Queue is Empty\n");
+        printf("Queue is empty.\n");
+        return;
     }
-    else
+
+    // Display elements from front to rear
+    printf("Queue elements: ");
+    for (int i = front; i <= rear; i++)
     {
-        printf("Current Queue elements: ");
-        for(int i = front; i <= rear; i++)
-        {
-            printf(" %d ", queue[i]);
-        }
-        printf(" <-rear\n");
+        printf("%d ", QUEUE[i]);
     }
+    printf("\n");
 }
 
+// --------------------- MAIN FUNCTION ---------------------
 int main()
 {
-    int choice;
+    int choice, data;
 
-    printf("Enter the size of queue: ");
-    scanf("%d", &MAX);
+    // Read the size of the queue
+    printf("Enter size of Queue: ");
+    scanf("%d", &size);
 
-    int queue[MAX];
-
-    while(1)
+    // Allocate memory dynamically
+    QUEUE = (int *)malloc(size * sizeof(int));
+    if (QUEUE == NULL)
     {
-        printf("\n1. Enqueue\n2. Dequeue\n3. Display\n4. Exit\n");
-        printf("Choose queue operation: ");
+        printf("Memory allocation failed!\n");
+        return 0;
+    }
+
+    // Menu-driven program
+    while (1)
+    {
+        printf("\n--- Queue Menu ---\n");
+        printf("1. Enqueue\n");
+        printf("2. Dequeue\n");
+        printf("3. Display\n");
+        printf("4. Exit\n");
+        printf("Enter your choice: ");
         scanf("%d", &choice);
 
-        switch(choice)
+        switch (choice)
         {
-            case 1:
-                enqueue(queue);
-                break;
-            case 2:
-                dequeue(queue);
-                break;
-            case 3:
-                display(queue);
-                break;
-            case 4:
-                return 0;
-            default:
-                printf("Invalid choice\n");
+        case 1:
+            printf("Enter data to insert: ");
+            scanf("%d", &data);
+            enqueue(data);
+            break;
+
+        case 2:
+            dequeue();
+            break;
+
+        case 3:
+            display();
+            break;
+
+        case 4:
+            printf("Exiting...\n");
+            free(QUEUE); // Free allocated memory
+            exit(0);
+
+        default:
+            printf("Invalid choice! Try again.\n");
         }
     }
+
+    return 0;
 }
 
 Output:
-Enter the size of queue: 5
+Enter size of Queue: 3
 
+--- Queue Menu ---
 1. Enqueue
 2. Dequeue
 3. Display
 4. Exit
-Choose queue operation: 1
-Enter element to enqueue : 10
+Enter your choice: 1
+Enter data to insert: 10
+10 inserted into queue.
 
-1. Enqueue
-2. Dequeue
-3. Display
-4. Exit
-Choose queue operation: 1
-Enter element to enqueue : 20
+--- Queue Menu ---
+Enter your choice: 1
+Enter data to insert: 20
+20 inserted into queue.
 
-Choose queue operation: 3
-Current Queue elements: 10 20 <-rear
+--- Queue Menu ---
+Enter your choice: 1
+Enter data to insert: 30
+30 inserted into queue.
 
-Choose queue operation: 2
-(10 is deleted)
+--- Queue Menu ---
+Enter your choice: 3
+Queue elements: 10 20 30
 
-Choose queue operation: 3
-Current Queue elements: 20 <-rear
+--- Queue Menu ---
+Enter your choice: 2
+Deleted element: 10
 
-Choose queue operation: 4
+--- Queue Menu ---
+Enter your choice: 3
+Queue elements: 20 30
+
+--- Queue Menu ---
+Enter your choice: 2
+Deleted element: 20
+
+--- Queue Menu ---
+Enter your choice: 2
+Deleted element: 30
+
+--- Queue Menu ---
+Enter your choice: 2
+Queue Underflow! Nothing to delete.
+
+--- Queue Menu ---
+Enter your choice: 4
+Exiting...
+
 
 Result:
 The program successfully implements queue operations using an array.
