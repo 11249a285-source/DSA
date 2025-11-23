@@ -22,44 +22,61 @@ Program:
 #include <stdio.h>
 #include <stdbool.h>
 
+// Recursive function to perform Linear Search
 int LinearSearch(int dataSet[], int size, int elementToFind, int index)
 {
+    // Base case: if index reaches end of array, element not found
     if (index >= size)
     {
         return -1;
     }
+
+    // If current element matches the target element
     if (dataSet[index] == elementToFind)
     {
         return index;
     }
+
+    // Recursive call to check the next element
     return LinearSearch(dataSet, size, elementToFind, index + 1);
 }
+
 int main()
 {
     int size, elementToFind, i;
+
+    // Read size of the dataset from the user
     printf("Enter the size of Data Set for Linear Search:");
     scanf("%d", &size);
 
+    // Declare array to store dataset elements
     int searchSpace[size];
+
+    // Read elements into the array
     for (i = 0; i < size; i++)
     {
         printf("Enter the %d out of %d element in data set: ", i + 1, size);
         scanf("%d", &searchSpace[i]);
     }
 
+    // Display the dataset
     printf("Given Dataset for Linear Search is: ");
     for (i = 0; i < size; i++)
     {
         printf("%d - ", searchSpace[i]);
     }
 
+    // Read the element to be searched
     printf("\nEnter the element to find in the dataset: ");
     scanf("%d", &elementToFind);
 
-    int foundAt = LinearSearch(searchSpace, size, elementToFind, i = 0);
+    // Call the recursive linear search function
+    int foundAt = LinearSearch(searchSpace, size, elementToFind, 0);
 
+    // Display the result of the search
     if (foundAt >= 0)
-        printf("Required element %d is found in the dataset at position %d or index %d", elementToFind, foundAt + 1, foundAt);
+        printf("Required element %d is found in the dataset at position %d or index %d",
+               elementToFind, foundAt + 1, foundAt);
     else
         printf("Required element %d is NOT found in the dataset!!!", elementToFind);
 }
