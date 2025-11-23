@@ -13,38 +13,56 @@ Algorithm:
 8.End the program.
 
 Program:
-    
+
 #include <stdio.h>
 int main()
 {
-    int n,key,i;
-    printf("Enter the size of the array : ");
-    scanf("%d", &n);
-    
-    int arr[n];
-    printf("Enter the elements of the array : ");
-    
-    for(i=0;i<n;i++)
-    scanf("%d", &arr[i]);
-    printf("Enter the element to search : ");
-    scanf("%d", &key);
-    
-    for(i=0;i<n;i++)
+    int size, elementToFind, i;
+    printf("Enter the size of Data Set for Linear Search:");
+    scanf("%d",&size);
+
+    int searchSpace[size];
+    for(i=0; i<=size-1; i++)
     {
-        if(arr[i] == key)
+        printf("Enter the %d out of %d element in data set: ",i+1, size);
+        scanf("%d",&searchSpace[i]);
+    }
+
+    //printf("Given Dataset for Linear Search is: ");
+    for(int i=0; i<size; i++)
+    {
+        printf("%d - ",searchSpace[i]);
+    }
+
+    printf("\nEnter the element to find in the dataset: ");
+    scanf("%d",&elementToFind);
+    i =0;
+    while(i<size)
+    {
+        if(searchSpace[i] == elementToFind)
         {
-            printf("Element found at position %d \n", i+1);
+            printf("Required element %d is found in the dataset at position %d or index %d",elementToFind, i+1, i);
             return 0;
         }
+        i++;
     }
-    printf("Element not found");
+
+    printf("Required element %d is NOT found in the dataset!!!",elementToFind);
 }
 
+Input given by user:
+Enter the size of Data Set for Linear Search: 5
+Enter the 1 out of 5 element in data set: 10
+Enter the 2 out of 5 element in data set: 20
+Enter the 3 out of 5 element in data set: 30
+Enter the 4 out of 5 element in data set: 40
+Enter the 5 out of 5 element in data set: 50
+10 - 20 - 30 - 40 - 50 - 
+Enter the element to find in the dataset: 30
+
+
 Output:
-Enter the size of the array : 5
-Enter the elements of the array : 10 25 30 45 50
-Enter the element to search : 30
-Element found at position 3
+Required element 30 is found in the dataset at position 3 or index 2
 
 Result:
 This program searches an element in an array using linear search and correctly displays whether the element is found or not.
